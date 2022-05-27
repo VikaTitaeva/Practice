@@ -35,8 +35,7 @@ cinema.MyTask mt;
         ClAdapter(Context context, List<String[]> elines){
             ctx = context;
             lines = elines;
-            lInflater = (LayoutInflater) ctx
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
         @Override
         public int getCount() {
@@ -95,7 +94,7 @@ cinema.MyTask mt;
             HttpURLConnection myConnection = null;
             try {
                 URL mySite = new
-                        URL("http://127.0.0.1:8080/kino?id=1&name=" + params[0]);
+                        URL("http://10.0.2.2:8080/kino?id=1&name=" + params[0]);
                 myConnection =
                         (HttpURLConnection) mySite.openConnection();
             } catch (MalformedURLException e) {
