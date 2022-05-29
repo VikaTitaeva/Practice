@@ -26,13 +26,15 @@ public class MainActivity extends AppCompatActivity {
         {
             case R.id.m1: intent = new Intent(this, cinema.class);
             break;
-            default:
-                return super.onOptionsItemSelected( item );
+            case R.id.m2: intent = new Intent(this, film.class);
+                break;
+            case R.id.m3: intent = new Intent(this, newcinema.class);
+                break;
+            case R.id.m4: intent = new Intent(this, newfilm.class);
+                break;
+            default: return super.onOptionsItemSelected( item );
         }
         startActivity( intent );
         return super.onOptionsItemSelected( item );
     }
-
-
-
 }

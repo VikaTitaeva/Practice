@@ -4,6 +4,18 @@
 
     <item
         android:id="@+id/m1"
-        android:title="найти кинотеатры"
+        android:title="find a cinema"
         android:visible="true" />
+    <item
+        android:id="@+id/m2"
+        android:title="find a film" />
+    <item
+        android:id="@+id/m3"
+        android:title="new cinema"
+        android:visible="true" />
+    <item
+        android:id="@+id/m4"
+        android:title="new film"
+        android:visible="true" />
+
 </menu>

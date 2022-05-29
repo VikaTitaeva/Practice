@@ -24,10 +24,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class cinema extends AppCompatActivity {
-TextView tvInfo;
-EditText tvName;
-cinema.MyTask mt;
+public class film extends AppCompatActivity {
+    TextView tvInfo;
+    EditText tvName;
+    film.MyTask mt;
     class ClAdapter extends BaseAdapter {
         Context ctx;
         LayoutInflater lInflater;
@@ -65,12 +65,12 @@ cinema.MyTask mt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_cinema );
+        setContentView( R.layout.activity_film );
         tvInfo=(TextView) findViewById( R.id.tvInfo );
         tvName=(EditText) findViewById( R.id.editTextTextPersonName );
     }
     public void onclick(View v) {
-        mt = new cinema.MyTask();
+        mt = new film.MyTask();
         mt.execute(tvName.getText().toString());
     }
     class MyTask extends AsyncTask<String, Void, ArrayList<String[]>> {
@@ -82,7 +82,7 @@ cinema.MyTask mt;
         @Override
         protected void onPostExecute(ArrayList<String[]> result){
             super.onPostExecute( result );
-            cinema.ClAdapter clAdapter=new cinema.ClAdapter (tvInfo.getContext(),result);
+            film.ClAdapter clAdapter=new film.ClAdapter (tvInfo.getContext(),result);
             ListView lvMain = (ListView) findViewById( R.id.lvMain );
             lvMain.setAdapter( clAdapter );
             tvInfo.setText("Result");
@@ -94,7 +94,7 @@ cinema.MyTask mt;
             HttpURLConnection myConnection = null;
             try {
                 URL mySite = new
-                        URL("http://10.0.2.2:8080/kino?id=1&name=" + params[0]);
+                        URL("http://10.0.2.2:8080/kino?id=2&name=" + params[0]);
                 myConnection =
                         (HttpURLConnection) mySite.openConnection();
             } catch (MalformedURLException e) {
@@ -183,5 +183,4 @@ cinema.MyTask mt;
             return res;
         }
     }
-    }
-
+}
