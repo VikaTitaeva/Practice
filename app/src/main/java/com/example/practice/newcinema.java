@@ -14,7 +14,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class newcinema extends AppCompatActivity {
-
     TextView tvInfo;
     EditText tvName;
     EditText tvAddress;

@@ -28,51 +28,20 @@ public class film extends AppCompatActivity {
     TextView tvInfo;
     EditText tvName;
     film.MyTask mt;
-    class ClAdapter extends BaseAdapter {
-        Context ctx;
-        LayoutInflater lInflater;
-        List<String[]> lines;
-        ClAdapter(Context context, List<String[]> elines){
-            ctx = context;
-            lines = elines;
-            lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-        @Override
-        public int getCount() {
-            return lines.size();
-        }
-        @Override
-        public Object getItem(int position) {
-            return lines.get(position);
-        }
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
-            View view = convertView;
-            if (view == null) {
-                view = lInflater.inflate(R.layout.item, parent, false);
-            };
-            String[] p =(String[]) getItem(position);
-            ((TextView) view.findViewById(R.id.tvText)).setText(p[0]);
-            ((TextView) view.findViewById(R.id.tvText1)).setText(p[1]);
-            return view;
-        };
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_film );
-        tvInfo=(TextView) findViewById( R.id.tvInfo );
-        tvName=(EditText) findViewById( R.id.editTextTextPersonName );
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_film);
+        tvInfo = (TextView) findViewById(R.id.tvInfo);
+        tvName = (EditText) findViewById(R.id.editTextTextPersonName);
     }
     public void onclick(View v) {
         mt = new film.MyTask();
         mt.execute(tvName.getText().toString());
     }
+
+
     class MyTask extends AsyncTask<String, Void, ArrayList<String[]>> {
         @Override
         protected void onPreExecute() {
@@ -80,13 +49,16 @@ public class film extends AppCompatActivity {
             tvInfo.setText("Begin");
         }
         @Override
-        protected void onPostExecute(ArrayList<String[]> result){
-            super.onPostExecute( result );
-            film.ClAdapter clAdapter=new film.ClAdapter (tvInfo.getContext(),result);
-            ListView lvMain = (ListView) findViewById( R.id.lvMain );
-            lvMain.setAdapter( clAdapter );
+        protected void onPostExecute(ArrayList<String[]> result) {
+            super.onPostExecute(result);
+            film.ClAdapter clAdapter=new
+                    film.ClAdapter(tvInfo.getContext(),result);
+            ListView lvMain = (ListView) findViewById(R.id.lvMain);
+            lvMain.setAdapter(clAdapter);
             tvInfo.setText("Result");
+
         }
+
 
         @Override
         protected ArrayList<String[]> doInBackground(String... params) {
@@ -94,7 +66,7 @@ public class film extends AppCompatActivity {
             HttpURLConnection myConnection = null;
             try {
                 URL mySite = new
-                        URL("http://10.0.2.2:8080/kino?id=2&name=" + params[0]);
+                        URL("http://10.0.2.2:8080/kino?id=2&fname=" + params[0]);
                 myConnection =
                         (HttpURLConnection) mySite.openConnection();
             } catch (MalformedURLException e) {
@@ -102,6 +74,7 @@ public class film extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             int i = 0;
             try {
                 i = myConnection.getResponseCode();
@@ -146,7 +119,6 @@ public class film extends AppCompatActivity {
                     ;
                     String[] str = new String[2];
                     int n = 0;
-
                     while (true) {
                         try {
                             if (!jsonReader.hasNext()) break;
@@ -158,11 +130,13 @@ public class film extends AppCompatActivity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+// sb.append("\r\n : " +key);
                         try {
                             value = jsonReader.nextString();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+// sb.append("\r\n : " +value);
                         str[n] = value;
                         n++;
                     }
@@ -181,6 +155,42 @@ public class film extends AppCompatActivity {
             }
             myConnection.disconnect();
             return res;
+
         }
+    }
+    class ClAdapter extends BaseAdapter {
+        Context ctx;
+        LayoutInflater lInflater;
+        List<String[]> lines;
+        ClAdapter(Context context, List<String[]> elines){
+            ctx = context;
+            lines = elines;
+            lInflater = (LayoutInflater) ctx
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+        @Override
+        public int getCount() {
+            return lines.size();
+        }
+        @Override
+        public Object getItem(int position) {
+            return lines.get(position);
+        }
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
+            View view = convertView;
+            if (view == null) {
+                view = lInflater.inflate(R.layout.itemf, parent, false);
+            };
+            String[] p =(String[]) getItem(position);
+            ((TextView) view.findViewById(R.id.tvText)).setText(p[0]);
+            ((TextView) view.findViewById(R.id.tvText1)).setText(p[1]);
+            return view;
+        };
     }
 }
